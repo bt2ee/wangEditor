@@ -5,7 +5,7 @@
 
 import { IUploadConfig } from '@wangeditor/core'
 
-type InsertFn = (src: string, alt: string, href: string) => void
+type InsertFn = (src: string, alt: string, href: string, loading: string) => void
 
 // 在通用 uploadConfig 上，扩展 image 相关配置
 export type IUploadConfigForImage = IUploadConfig & {

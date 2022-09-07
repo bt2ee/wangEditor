@@ -156,7 +156,7 @@ export default async function (editor: IDomEditor, files: FileList | null) {
       // 上传
       if (customUpload) {
         // 自定义上传
-        await customUpload(file, (src, alt, href) => insertImageNode(editor, src, alt, href))
+        await customUpload(file, (src, alt, href, loading) => insertImageNode(editor, src, alt, loading, href))
       } else {
         // 默认上传
         await uploadFile(editor, file)

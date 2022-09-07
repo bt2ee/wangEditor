@@ -19,6 +19,7 @@ describe('image helper', () => {
   const src = 'https://www.wangeditor.com/imgs/logo.png'
   const alt = 'logo'
   const href = 'https://www.wangeditor.com/'
+  const loading = 'lazy'
 
   beforeEach(() => {
     editor = createEditor()
@@ -32,7 +33,7 @@ describe('image helper', () => {
 
   it('insert image node', async () => {
     editor.select(startLocation)
-    await insertImageNode(editor, src, alt, href)
+    await insertImageNode(editor, src, alt, href, loading)
     const images = editor.getElemsByTypePrefix('image')
     expect(images.length).toBe(1)
   })
@@ -45,6 +46,7 @@ describe('image helper', () => {
       src,
       alt,
       href,
+      loading,
       style: { width: '100', height: '80' },
       children: [{ text: '' }], // void node 必须包含一个空 text
     }
@@ -57,7 +59,7 @@ describe('image helper', () => {
     const newSrc = 'https://www.baidu.com/logo.png'
     const newAlt = 'baidu'
     const newHref = 'https://www.baidu.com/'
-    await updateImageNode(editor, newSrc, newAlt, newHref, {}) // 更新图片信息
+    await updateImageNode(editor, newSrc, newAlt, newHref, loading, {}) // 更新图片信息
 
     const imageNode = DomEditor.getSelectedNodeByType(editor, 'image')
     expect(imageNode).not.toBeNull()

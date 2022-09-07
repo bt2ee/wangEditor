@@ -35,6 +35,7 @@ class EditImage implements IModalMenu {
   private readonly srcInputId = genDomID()
   private readonly altInputId = genDomID()
   private readonly hrefInputId = genDomID()
+  private readonly loadingId = genDomID()
   private readonly buttonId = genDomID()
 
   getValue(editor: IDomEditor): string | boolean {
@@ -73,7 +74,7 @@ class EditImage implements IModalMenu {
   }
 
   getModalContentElem(editor: IDomEditor): DOMElement {
-    const { srcInputId, altInputId, hrefInputId, buttonId } = this
+    const { srcInputId, altInputId, hrefInputId, loadingId, buttonId } = this
 
     const selectedImageNode = this.getImageNode(editor)
     if (selectedImageNode == null) {
@@ -87,6 +88,8 @@ class EditImage implements IModalMenu {
     const $inputAlt = $(inputAltElem)
     const [hrefContainerElem, inputHrefElem] = genModalInputElems(t('image.link'), hrefInputId)
     const $inputHref = $(inputHrefElem)
+    const [loadingContainerElem, inputLoadingElem] = genModalInputElems(t('image.link'), loadingId)
+    const $inputLoading = $(inputHrefElem)
     const [buttonContainerElem] = genModalButtonElems(buttonId, t('common.ok'))
 
     if (this.$content == null) {
@@ -115,13 +118,16 @@ class EditImage implements IModalMenu {
     $content.append(srcContainerElem)
     $content.append(altContainerElem)
     $content.append(hrefContainerElem)
+    $content.append(loadingContainerElem)
     $content.append(buttonContainerElem)
 
     // 设置 input val
-    const { src, alt = '', href = '' } = selectedImageNode as ImageElement
+    const { src, alt = '', href = '', loading = 'auto' } = selectedImageNode as ImageElement
     $inputSrc.val(src)
     $inputAlt.val(alt)
     $inputHref.val(href)
+    $inputHref.val(href)
+    $inputLoading.val(loading)
 
     // focus 一个 input（异步，此时 DOM 尚未渲染）
     setTimeout(() => {
@@ -136,6 +142,7 @@ class EditImage implements IModalMenu {
     src: string,
     alt: string = '',
     href: string = '',
+    loading: string = '',
     style: ImageStyle = {}
   ) {
     if (!src) return
@@ -146,7 +153,7 @@ class EditImage implements IModalMenu {
     if (this.isDisabled(editor)) return
 
     // 修改图片信息
-    updateImageNode(editor, src, alt, href, style)
+    updateImageNode(editor, src, alt, href, loading, style)
   }
 }
 

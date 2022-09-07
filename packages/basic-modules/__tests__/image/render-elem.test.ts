@@ -28,11 +28,13 @@ describe('image render elem', () => {
 
     const src = 'https://www.wangeditor.com/imgs/logo.png'
     const href = 'https://www.wangeditor.com/'
+    const loading = 'lazy'
     const elem = {
       type: 'image',
       src,
       alt: 'logo',
       href,
+      loading,
       style: { width: '100', height: '80' },
       children: [{ text: '' }], // void node 必须包含一个空 text
     }
@@ -47,6 +49,7 @@ describe('image render elem', () => {
     expect(imageVnode.sel).toBe('img')
     expect(imageVnode.data.src).toBe(src)
     expect(imageVnode.data['data-href']).toBe(href)
+    expect(imageVnode.data.loading).toBe(loading)
   })
 
   it('render image - selected image', () => {

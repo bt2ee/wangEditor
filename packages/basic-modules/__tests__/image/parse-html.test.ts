@@ -12,7 +12,7 @@ describe('image - parse html', () => {
 
   it('parse html', () => {
     const $img = $(
-      '<img src="hello.png" alt="hello" data-href="http://localhost/" style="width: 10px; height: 5px;"/>'
+      '<img src="hello.png" alt="hello" data-href="http://localhost/" style="width: 10px; height: 5px;" loading="lazy"/>'
     )
 
     // match selector
@@ -25,6 +25,7 @@ describe('image - parse html', () => {
       src: 'hello.png',
       alt: 'hello',
       href: 'http://localhost/',
+      loading: 'lazy',
       style: {
         width: '10px',
         height: '5px',

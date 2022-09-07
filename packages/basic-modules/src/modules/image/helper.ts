@@ -45,7 +45,8 @@ export async function insertImageNode(
   editor: IDomEditor,
   src: string,
   alt: string = '',
-  href: string = ''
+  href: string = '',
+  loading: string = 'auto'
 ) {
   const res = await check('insertImage', editor, src, alt, href)
   if (!res) return // 检查失败，终止操作
@@ -58,6 +59,7 @@ export async function insertImageNode(
     src: replaceSymbols(parsedSrc),
     href,
     alt,
+    loading,
     style: {},
     children: [{ text: '' }], // 【注意】void node 需要一个空 text 作为 children
   }
@@ -85,6 +87,7 @@ export async function updateImageNode(
   src: string,
   alt: string = '',
   href: string = '',
+  loading: string = 'auto',
   style: ImageStyle = {}
 ) {
   const res = await check('editImage', editor, src, alt, href)
@@ -101,6 +104,7 @@ export async function updateImageNode(
     src: parsedSrc,
     alt,
     href,
+    loading,
     style: {
       ...curStyle,
       ...style,

@@ -16,13 +16,14 @@ describe('image to html', () => {
       src,
       alt: 'logo',
       href,
+      loading: 'lazy',
       style: { width: '100', height: '80' },
       children: [{ text: '' }], // void node 必须包含一个空 text
     }
     const html = imageToHtmlConf.elemToHtml(elem, '')
 
     expect(html).toBe(
-      `<img src="${src}" alt="logo" data-href="${href}" style="width: 100;height: 80;"/>`
+      `<img src="${src}" alt="logo" data-href="${href}" style="width: 100;height: 80;" loading="lazy"/>`
     )
   })
 })
